@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <title>
+            Members Only
+        </title>
+    </head>
+    <body>
+    <% if (locals.currentUser) { %>
+        <h1>Hello <%= currentUser.username %></h1>
+        <a href="/logout">Log out</a>
+    <% } else { %>
+        <%- include('partials/login-form') %>
+    <% } %>
+    </body>
+</html>

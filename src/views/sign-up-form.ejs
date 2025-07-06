@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>Sign-Up form</title>
+  </head>
+  <body>
+    <form action="/sign-up" method="POST">
+      <label>
+        Username:
+        <input type="text" name="username" minlength="8" maxlength="24" required/>
+      </label>
+      <label>
+        First Name:
+        <input type="text" name="firstname" minlength="8" maxlength="24" required />
+      </label>
+      <label>
+        Last Name:
+        <input type="text" name="lastname" minlength="8" maxlength="24" required />
+      </label>
+      <label>
+        Password:
+        <input type="password" name="password" minlength="8" maxlength="24" required />
+      </label>
+      <button type="submit">Sign-up</button>
+    </form>
+  </body>
+</html>
