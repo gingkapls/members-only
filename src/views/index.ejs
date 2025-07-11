@@ -1,15 +1,35 @@
 <html>
-    <head>
-        <title>
-            Members Only
-        </title>
-    </head>
-    <body>
+  <head>
+    <title>Members Only</title>
+  </head>
+  <body>
     <% if (locals.currentUser) { %>
-        <h1>Hello <%= currentUser.username %></h1>
-        <a href="/logout">Log out</a>
-    <% } else { %>
+      <h1>Hello <%= currentUser.username %></h1>
+      <a href="/logout">Log out</a>
+      <%- include('partials/message-form') %>
+        <% if (!currentUser.is_member) { %>
+          <a href="/become-a-member">Become a member</a>
+        <% } %>
+        <% if (!currentUser.is_admin) { %>
+          <a href="/become-an-admin">Become an admin</a>
+        <% } %>
+
+      <% } else { %>
         <%- include('partials/login-form') %>
+        <a href="/sign-up">Sign up</a>
     <% } %>
-    </body>
+    <ul>
+      <% messages.forEach(message => { %>
+      <li>
+        <% if (currentUser?.is_member) { %> <%= message.username %> - <%=
+        message.text %> <br />
+        <%= message.time_created %> <br /><br />
+        <% } else { %> <%= message.text %> <% } %>
+        <% if (currentUser?.is_admin) { %>
+          <a href="message/<%= message.m_id %>/delete"> Delete message </a>
+        <% } %>
+      </li>
+      <% }) %>
+    </ul>
+  </body>
 </html>

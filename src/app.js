@@ -8,6 +8,9 @@ const signUpRouter = require("./routes/signupRouter");
 const indexRouter = require("./routes/indexRouter");
 const loginRouter = require("./routes/loginRouter");
 const passport = require("passport");
+const messageRouter = require("./routes/messageRouter");
+const memberRouter = require("./routes/memberRouter");
+const adminRouter = require("./routes/adminRouter");
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -29,22 +32,19 @@ app.use((req, res, next) => {
 });
 
 // Routes
+app.use("/", indexRouter);
 app.use("/sign-up", signUpRouter);
 app.use("/login", loginRouter);
 app.get("/logout", (req, res) =>
   req.logout((err) => {
     if (err) return next(err);
-
     res.redirect("/");
   })
 );
 
-app.use((req, res, next) => {
-  console.log(req.user);
-  next();
-});
-
-app.use("/", indexRouter);
+app.use("/message", messageRouter);
+app.use("/become-a-member", memberRouter);
+app.use("/become-an-admin", adminRouter);
 
 app.listen(PORT, () => {
   console.log(`Listening at port: ${PORT}`);

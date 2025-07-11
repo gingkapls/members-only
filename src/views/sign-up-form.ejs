@@ -6,21 +6,44 @@
     <form action="/sign-up" method="POST">
       <label>
         Username:
-        <input type="text" name="username" minlength="8" maxlength="24" required/>
+        <input
+          type="text"
+          name="username"
+          required
+        />
       </label>
       <label>
         First Name:
-        <input type="text" name="firstname" minlength="8" maxlength="24" required />
+        <input
+          type="text"
+          name="firstname"
+          required
+        />
       </label>
       <label>
         Last Name:
-        <input type="text" name="lastname" minlength="8" maxlength="24" required />
+        <input
+          type="text"
+          name="lastname"
+          required
+        />
       </label>
       <label>
         Password:
-        <input type="password" name="password" minlength="8" maxlength="24" required />
+        <input
+          type="password"
+          name="password"
+          required
+        />
       </label>
       <button type="submit">Sign-up</button>
+      <% if (locals.errors) { %>
+      <ul>
+        <% errors.forEach((err) => { %>
+        <li><%= err.msg %></li>
+        <% }) %>
+      </ul>
+      <% } %>
     </form>
   </body>
 </html>

@@ -33,8 +33,43 @@ async function authenticateUser(user, password) {
   return isAuthenticated;
 }
 
+async function addMessage(username, text) {
+  await pool.query("INSERT INTO messages(username, text) VALUES ($1, $2)", [
+    username,
+    text,
+  ]);
+}
+
+async function getAllMessages() {
+  const { rows } = await pool.query(
+    "SELECT * FROM messages ORDER BY time_created DESC"
+  );
+  return rows;
+}
+
+async function makeUserMember(username) {
+  await pool.query("UPDATE users SET is_member = true WHERE username = ($1)", [
+    username,
+  ]);
+}
+
+async function makeUserAdmin(username) {
+  await pool.query("UPDATE users SET is_admin = true WHERE username = ($1)", [
+    username,
+  ]);
+}
+
+async function deleteMessageById(id) {
+  await pool.query("DELETE FROM messages WHERE m_id = ($1)", [id]);
+}
+
 module.exports = {
   addUser,
   getUserByUserName,
   authenticateUser,
+  addMessage,
+  deleteMessageById,
+  getAllMessages,
+  makeUserMember,
+  makeUserAdmin,
 };
